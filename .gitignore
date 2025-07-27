@@ -1,0 +1,4 @@
+#Ignorar credenciais
+credentials.json
+#Ignorar variaveis de ambiente
+.env
