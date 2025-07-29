@@ -25,9 +25,14 @@ df_emails = get_as_dataframe(sheet, evaluate_formulas=True)
 st.set_page_config(layout='wide',page_icon='news')
 st.title('Newsletter Comissão T-38')
 mensagem_basica = st.text_input('Insira Aqui a Mensagem que deseja enviar')
+senha_envio = st.text_input('Digite a Senha para envio',type = 'password')
 send_button = st.button('Enviar emails')
 
 if send_button and mensagem_basica:
+    if senha_envio != st.secrets['SENHA_ENVIAR_EMAIL']:
+        st.error('Senha Incorreta')
+        st.stop()
+
     email_remetente = 'pedro.ponte.9126@ga.ita.br'
     senha_app = st.secrets['SENHA_APP']
 
