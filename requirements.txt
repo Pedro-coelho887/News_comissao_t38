@@ -1,0 +1,7 @@
+streamlit
+pandas
+gspread
+google-auth
+gspread-dataframe
+python-dotenv
+email-validator

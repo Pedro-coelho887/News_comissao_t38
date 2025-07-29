@@ -3,4 +3,4 @@ credentials.json
 #Ignorar variaveis de ambiente
 .env
 #Ignorar Secrets
-.streamlit
+.streamlit/secrets.toml

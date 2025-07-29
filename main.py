@@ -8,15 +8,15 @@ from dotenv import load_dotenv
 import os
 import smtplib
 from email.message import EmailMessage
-
+import json
 #Conexão API google Sheets
 scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-creds = Credentials.from_service_account_file("credentials.json", scopes=scope)
+creds_dict = json.loads(st.secrets['GOOGLE_CREDENTIALS'])
+creds = Credentials.from_service_account_info(creds_dict, scopes=scope)
 client = gspread.authorize(creds)
 
 #Puxando variáveis de ambiente
-load_dotenv()
-EMAILS_ID = os.getenv('EMAILS_ID')
+EMAILS_ID = st.secrets['EMAILS_ID']
 sheet = client.open_by_key(EMAILS_ID).sheet1
 
 # Ler os dados
@@ -29,7 +29,7 @@ send_button = st.button('Enviar emails')
 
 if send_button and mensagem_basica:
     email_remetente = 'pedro.ponte.9126@ga.ita.br'
-    senha_app = os.getenv('SENHA_APP')
+    senha_app = st.secrets['SENHA_APP']
 
     for _,linha in df_emails.iterrows():
         try:
