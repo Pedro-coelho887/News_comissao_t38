@@ -24,7 +24,8 @@ df_emails = get_as_dataframe(sheet, evaluate_formulas=True)
 
 st.set_page_config(layout='wide',page_icon='news')
 st.title('Newsletter Comissão T-38')
-mensagem_basica = st.text_input('Insira Aqui a Mensagem que deseja enviar')
+mensagem_basica = st.text_area('Insira Aqui a Mensagem que deseja enviar',height=400)
+assunto_email = st.text_input('Digite o Assunto do Email')
 senha_envio = st.text_input('Digite a Senha para envio',type = 'password')
 send_button = st.button('Enviar emails')
 
@@ -41,9 +42,12 @@ if send_button and mensagem_basica:
             with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
                 smtp.login(email_remetente,senha_app)
                 msg = EmailMessage()
-                msg['Subject'] = 'Newsletter Comissão T38'
                 msg['From'] = email_remetente
                 msg['To'] = linha['Email']
+                if assunto_email:
+                    msg['Subject'] = assunto_email
+                else:
+                    msg['Subject'] = 'Newsletter Comissão T38'
 
                 mensagem_completa = f'Olá {linha['Nome']}! \n\n {mensagem_basica}'
                 msg.set_content(mensagem_completa)
